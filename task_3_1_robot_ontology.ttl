@@ -1,0 +1,128 @@
+@prefix : <http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/> .
+
+<http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/включает_компонент
+:включает_компонент rdf:type owl:ObjectProperty ,
+                             owl:TransitiveProperty ;
+                    rdfs:domain :РоботизированнаяСистема ;
+                    rdfs:range :РоботизированнаяСистема .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/имеет_критичный_дефект
+:имеет_критичный_дефект rdf:type owl:ObjectProperty ,
+                                 owl:FunctionalProperty ;
+                        rdfs:domain :Робот ;
+                        rdfs:range :Дефект .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/использует_маршрут
+:использует_маршрут rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+                    rdfs:domain :Робот ;
+                    rdfs:range :МаршрутДвижения .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Дефект
+:Дефект rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/КритичноеОборудование
+:КритичноеОборудование rdf:type owl:Class ;
+                       rdfs:subClassOf :Оборудование .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/КритичныйДефект
+:КритичныйДефект rdf:type owl:Class ;
+                 rdfs:subClassOf :Дефект .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/МаршрутДвижения
+:МаршрутДвижения rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Оборудование
+:Оборудование rdf:type owl:Class ;
+              rdfs:subClassOf :РоботизированнаяСистема .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/РисковыйРобот
+:РисковыйРобот rdf:type owl:Class ;
+               rdfs:subClassOf :Робот .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Робот
+:Робот rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/РоботизированнаяСистема
+:РоботизированнаяСистема rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/СенсорнаяСистема
+:СенсорнаяСистема rdf:type owl:Class ;
+                  rdfs:subClassOf :РоботизированнаяСистема .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Дефект_ОтказЛидара
+:Дефект_ОтказЛидара rdf:type owl:NamedIndividual ,
+                             :Дефект ,
+                             :КритичныйДефект .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Дефект_ПовреждениеКорпуса
+:Дефект_ПовреждениеКорпуса rdf:type owl:NamedIndividual ,
+                                    :Дефект .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Лидар_RPLidar
+:Лидар_RPLidar rdf:type owl:NamedIndividual ,
+                        :КритичноеОборудование ,
+                        :Оборудование .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Маршрут_Складской
+:Маршрут_Складской rdf:type owl:NamedIndividual ,
+                            :МаршрутДвижения ;
+                   :включает_компонент :СистемаНавигации .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Робот_CleanerBot
+:Робот_CleanerBot rdf:type owl:NamedIndividual ,
+                           :Робот ;
+                  :имеет_критичный_дефект :Дефект_ПовреждениеКорпуса ;
+                  :использует_маршрут :Маршрут_Складской .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/Робот_TurtleBot
+:Робот_TurtleBot rdf:type owl:NamedIndividual ,
+                          :Робот ;
+                 :имеет_критичный_дефект :Дефект_ОтказЛидара ;
+                 :использует_маршрут :Маршрут_Складской .
+
+
+###  http://www.semanticweb.org/robots/ontologies/2025/10/robot-ontology/СистемаНавигации
+:СистемаНавигации rdf:type owl:NamedIndividual ,
+                           :СенсорнаяСистема ;
+                  :включает_компонент :Лидар_RPLidar .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
